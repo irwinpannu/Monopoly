@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Monopoly with Kids</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #e1bee7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 90%;
+    }
+    h2 {
+      margin-bottom: 2rem;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    button {
+      background-color: #7e57c2;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      min-width: 120px;
+    }
+    button:hover {
+      background-color: #5e35b1;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 id="question">Will you play Monopoly with your kids?</h2>
+  <div class="btn-group" id="options">
+    <button onclick="handleAnswer('yes')">Yes</button>
+    <button onclick="handleAnswer('no')">No</button>
+  </div>
+</div>
+
+<script>
+  const questionEl = document.getElementById('question');
+  const optionsEl = document.getElementById('options');
+
+  const annoyingQuestions = [
+    "So you don't want to spend time with your kids?",
+    "Are you a good parent?",
+    "Are your kids your number 1 priority?",
+    "Do you want to make your kids happy?",
+    "Do you care about their childhood memories?",
+    "Wouldn't it be fun to bond over board games?",
+    "Just say yes already!"
+  ];
+
+  let questionIndex = 0;
+  let pestering = true;
+
+  function handleAnswer(answer) {
+    if (!pestering) {
+      questionEl.textContent = "Yay, let's play!";
+      optionsEl.style.display = "none";
+      return;
+    }
+
+    if (answer === 'yes') {
+      questionEl.textContent = "Yay, let's play!";
+      optionsEl.style.display = "none";
+    } else {
+      // Keep pestering
+      if (questionIndex < annoyingQuestions.length) {
+        questionEl.textContent = annoyingQuestions[questionIndex];
+        questionIndex++;
+      } else {
+        questionEl.textContent = "Will you play Monopoly with your kids now?";
+        optionsEl.innerHTML = `
+          <button onclick="handleAnswer('yes')">Yes</button>
+          <button onclick="handleAnswer('yes')">Yes</button>
+        `;
+        pestering = false;
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
